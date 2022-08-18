@@ -1,5 +1,3 @@
-
-
 const dotenv = require("dotenv");
 dotenv.config();
 const { TwitterClient } = require("twitter-api-client");
@@ -43,10 +41,12 @@ const previousCheckpoint = (int) => {
   if (int < 1000) return Math.floor(int / 100) * 100;
 
   const numOfDigits = int.toString().length;
-  const num = Math.floor(int / Math.pow(10, numOfDigits - (numOfDigits % 3 || 3)));
+  const num = Math.floor(
+    int / Math.pow(10, numOfDigits - (numOfDigits % 3 || 3))
+  );
 
   return num * Math.pow(10, numOfDigits - num.toString().length);
-}
+};
 
 /**
  * Get next checkpoint from a number (for example: 120 => 200, 12732 => 13000)
@@ -60,35 +60,39 @@ const nextCheckpoint = (int) => {
   if (int < 1000) return (Math.floor(int / 100) + 1) * 100;
 
   const numOfDigits = int.toString().length;
-  const num = Math.floor(int / Math.pow(10, numOfDigits - (numOfDigits % 3 || 3)));
+  const num = Math.floor(
+    int / Math.pow(10, numOfDigits - (numOfDigits % 3 || 3))
+  );
 
   return (num + 1) * Math.pow(10, numOfDigits - num.toString().length);
-}
+};
 
 /**
  * Get followers progress bar
- * @param {number} followersCount 
+ * @param {number} followersCount
  * @returns {string}
  */
 
 const getFollowersProgress = (followersCount) => {
   const prev = previousCheckpoint(followersCount);
   const next = nextCheckpoint(followersCount);
-  
-  const greenCubes = "🟩".repeat(Math.floor((followersCount - prev) / ((next - prev) / 5)));
-  const yellowCube = (followersCount - prev) / ((next - prev) / 5) % 1 !== 0 ? "🟨" : "";
+
+  const greenCubes = "🟩".repeat(
+    Math.floor((followersCount - prev) / ((next - prev) / 5))
+  );
+  const yellowCube =
+    ((followersCount - prev) / ((next - prev) / 5)) % 1 !== 0 ? "🟨" : "";
   const cubes = (greenCubes + yellowCube).padEnd(10, "⬜️");
-  
+
   return `${abbreviateInt(prev)} ${cubes} ${abbreviateInt(next)} followers`;
-}
+};
 
 async function get_followers() {
-
   /*---------------UPDATE LOCATION PROFIL---------------------*/
 
   try {
     const follower = await twitterClient.accountsAndUsers.usersShow({
-      screen_name: process.env.SCREEN_NAME
+      screen_name: process.env.SCREEN_NAME,
     });
 
     const location = getFollowersProgress(follower.followers_count);
@@ -100,9 +104,7 @@ async function get_followers() {
     console.error(err);
   }
 
-
-
-/*---------------UPDATE PROFIL PICTURE---------------------*/
+  /*---------------UPDATE PROFIL PICTURE---------------------*/
   const followers = await twitterClient.accountsAndUsers.followersList({
     count: 3,
   });
@@ -159,10 +161,8 @@ async function process_image(url, image_path) {
   );
 }
 
-
 async function draw_image(image_data) {
   try {
-
     await sharp("twitter-banner.png")
       .composite(image_data)
       .toFile("new-twitter-banner.png");
