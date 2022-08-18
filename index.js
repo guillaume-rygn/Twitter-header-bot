@@ -22,7 +22,7 @@ async function get_followers() {
 
 
   const follower = await twitterClient.accountsAndUsers.usersShow({
-    screen_name: "VOTRE PSEUDO TWITTER SANS @"
+    screen_name: process.env.SCREEN_NAME
   });
 
   let location = []
