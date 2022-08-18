@@ -1,8 +1,6 @@
 
 # 🤖 Twitter Bot Header
 
-Real-Time Header bot for Twitter
-
 ![banner](images/banner.png)
 
 
