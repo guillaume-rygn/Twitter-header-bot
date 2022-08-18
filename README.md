@@ -6,14 +6,28 @@
 
 ## How to setup for your Twitter
 
-Add a '.env' file and insert these lines:
+Add a '.env' file and insert these lines
 
+```shell
+# \cat .env.dist # to print configuration a configuration file example
+API_KEY=''        # API access key
+API_SECRET=''     # API access secret
+ACCESS_TOKEN=''   # API access token
+ACCESS_SECRET=''  # API access token secret
+SCREEN_NAME=''    # Twitter handle (without the @ character)
 ```
-API_KEY='' # API key
-API_SECRET='' # API key secret
-ACCESS_TOKEN='' # Access token
-ACCESS_SECRET='' # Access token secret
-SCREEN_NAME='' # Twitter handle (without the @ character)
+
+or run this command after replacing the underscore characters with
+ - valid credentials,
+ - and a Twitter handle
+
+```shell
+API_KEY='_' \
+API_SECRET='_' \
+ACCESS_TOKEN='_' \
+ACCESS_SECRET='_' \
+SCREEN_NAME='_' \
+make configure
 ```
 
 To get the API keys, you need to [apply for a Twitter Developer account](https://developer.twitter.com/en/apply-for-access).  
