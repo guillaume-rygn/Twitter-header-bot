@@ -86,15 +86,21 @@ async function get_followers() {
 
   /*---------------UPDATE LOCATION PROFIL---------------------*/
 
-  const follower = await twitterClient.accountsAndUsers.usersShow({
-    screen_name: process.env.SCREEN_NAME
-  });
+  try {
+    const follower = await twitterClient.accountsAndUsers.usersShow({
+      screen_name: process.env.SCREEN_NAME
+    });
 
-  const location = getFollowersProgress(follower.followers_count);
+    const location = getFollowersProgress(follower.followers_count);
 
-  const update = await twitterClient.accountsAndUsers.accountUpdateProfile({
-    location,
-  });
+    const update = await twitterClient.accountsAndUsers.accountUpdateProfile({
+      location,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+
+
 
 /*---------------UPDATE PROFIL PICTURE---------------------*/
   const followers = await twitterClient.accountsAndUsers.followersList({
