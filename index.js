@@ -16,152 +16,89 @@ const twitterClient = new TwitterClient({
   accessTokenSecret: process.env.ACCESS_SECRET,
 });
 
+/**
+ * Abbreviates an integer with k, M or B abbreviation
+ * @param {number} int Integer to abbreviate
+ * @returns {string} Abbreviated integer
+ */
+
+const abbreviateInt = (int) => {
+  if (int < 1000) return int.toString();
+
+  const numOfDigits = int.toString().length;
+  const unit = numOfDigits - (numOfDigits % 3 || 3);
+
+  return Math.floor(int / Math.pow(10, unit)) + " kMB"[unit / 3];
+};
+
+/**
+ * Get previous checkpoint from a number (for example: 120 => 100, 12732 => 12000)
+ * @param {number} int
+ * @returns {number}
+ */
+
+const previousCheckpoint = (int) => {
+  if (int < 100) return 0;
+
+  if (int < 1000) return Math.floor(int / 100) * 100;
+
+  const numOfDigits = int.toString().length;
+  const num = Math.floor(int / Math.pow(10, numOfDigits - (numOfDigits % 3 || 3)));
+
+  return num * Math.pow(10, numOfDigits - num.toString().length);
+}
+
+/**
+ * Get next checkpoint from a number (for example: 120 => 200, 12732 => 13000)
+ * @param {number} int
+ * @returns {number}
+ */
+
+const nextCheckpoint = (int) => {
+  if (int < 100) return 100;
+
+  if (int < 1000) return (Math.floor(int / 100) + 1) * 100;
+
+  const numOfDigits = int.toString().length;
+  const num = Math.floor(int / Math.pow(10, numOfDigits - (numOfDigits % 3 || 3)));
+
+  return (num + 1) * Math.pow(10, numOfDigits - num.toString().length);
+}
+
+/**
+ * Get followers progress bar
+ * @param {number} followersCount 
+ * @returns {string}
+ */
+
+const getFollowersProgress = (followersCount) => {
+  const prev = previousCheckpoint(followersCount);
+  const next = nextCheckpoint(followersCount);
+  
+  const greenCubes = "🟩".repeat(Math.floor((followersCount - prev) / ((next - prev) / 5)));
+  const yellowCube = (followersCount - prev) / ((next - prev) / 5) % 1 !== 0 ? "🟨" : "";
+  const cubes = (greenCubes + yellowCube).padEnd(10, "⬜️");
+  
+  return `${abbreviateInt(prev)} ${cubes} ${abbreviateInt(next)} followers`;
+}
+
 async function get_followers() {
 
   /*---------------UPDATE LOCATION PROFIL---------------------*/
 
+  try {
+    const follower = await twitterClient.accountsAndUsers.usersShow({
+      screen_name: process.env.SCREEN_NAME
+    });
 
-  const follower = await twitterClient.accountsAndUsers.usersShow({
-    screen_name: process.env.SCREEN_NAME
-  });
+    const location = getFollowersProgress(follower.followers_count);
 
-  let location = []
-
-  if(follower.followers_count< 100){
-    location.push("0 ")
-    let greencube = Math.floor(follower.followers_count/ 20)
-    console.log(greencube)
-    let cube = 0
-    if(greencube > 0){
-      for(let i = 0; i < greencube; i++){
-        location.push("🟩")
-        cube ++
-      }
-      if(follower.followers_count- (greencube * 20) > 0){
-        location.push("🟨")
-        cube ++
-
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      } else {
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      }
-    } else {
-      if(follower.followers_count/ 20 > 0){
-        location.push("🟨")
-        cube ++
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      } else {
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      }
-    }
-    location.push(" 100 followers")
-  } else if(follower.followers_count>= 100 && follower.followers_count< 1000){
-    location.push("100 ")
-
-    let greencube = Math.floor(follower.followers_count/ 200)
-    console.log(greencube)
-    let cube = 0
-    if(greencube > 0){
-      for(let i = 0; i < greencube; i++){
-        location.push("🟩")
-        cube ++
-      }
-      if(follower.followers_count- (greencube * 200) > 0){
-        location.push("🟨")
-        cube ++
-
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      } else {
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      }
-    } else {
-      if(follower.followers_count/ 200 > 0){
-        location.push("🟨")
-        cube ++
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      } else {
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      }
-    }
-    location.push(" 1k followers")
-
-    /*----------------*/ 
-
-} else if(follower.followers_count>= 1000){
-
-  let number = Math.floor(follower.followers_count/ 1000)
-
-  location.push(`${number}k `)
-  
-    let greencube = Math.floor((follower.followers_count - (number*1000))/ 200)
-    console.log(greencube)
-    let cube = 0
-    if(greencube > 0){
-      for(let i = 0; i < greencube; i++){
-        location.push("🟩")
-        cube ++
-      }
-      if(follower.followers_count- (greencube * 200) > 0){
-        location.push("🟨")
-        cube ++
-
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      } else {
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      }
-    } else {
-      if((follower.followers_count - (number*1000))/ 200 > 0){
-        location.push("🟨")
-        cube ++
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      } else {
-        while(cube < 5){
-          location.push("⬜️")
-          cube ++
-        }
-      }
-    }
-    location.push(` ${number + 1}k followers`)
-}
-
-  const update = await twitterClient.accountsAndUsers.accountUpdateProfile({
-    location: location.join("")
-  });
-
-
+    const update = await twitterClient.accountsAndUsers.accountUpdateProfile({
+      location,
+    });
+  } catch (err) {
+    console.error(err);
+  }
 
 
 
