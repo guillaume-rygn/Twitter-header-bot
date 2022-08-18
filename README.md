@@ -13,14 +13,7 @@ API_KEY=//VOTRE API KEY
 API_SECRET=//VOTRE API KEY SECRET
 ACCESS_TOKEN=//VOTRE ACCESS TOKEN
 ACCESS_SECRET=//VOTRE ACCESS TOKEN SECRET
-```
-
-In index.js, modify screen_name
-
-```
-const follower = await twitterClient.accountsAndUsers.usersShow({
-    screen_name: "VOTRE PSEUDO TWITTER SANS @"
-  });
+SCREEN_NAME=//PSEUDO TWITTER SANS @
 ```
 
 To get the API keys, you need to [apply for a Twitter Developer account](https://developer.twitter.com/en/apply-for-access). It's free and take ~5 minutes.
