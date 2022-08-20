@@ -1,4 +1,3 @@
-
 # 🤖 Twitter Bot Header
 
 ![banner](images/banner.png)
