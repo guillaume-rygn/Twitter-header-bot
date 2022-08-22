@@ -48,6 +48,27 @@ Keep it running with a process manager like [pm2](https://pm2.io/) and have fun!
 
 The script fetches new replies every 60 seconds (to avoid [rate limit](https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-users-show)).
 
+## Development guidelines
+
+Eslint & prettier is setup on this repository. Don't forget to run them before commit.
+
+How to reformat ?
+
+```
+npm run format
+```
+
+How to run eslint ?
+```
+npm run lint
+```
+
+or 
+
+```
+npm run lint:fix
+```
+
 ## Most importantly
 
 Follow me on Twitter! [@guillaume_rygn](https://twitter.com/guillaume_rygn)
