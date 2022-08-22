@@ -10,8 +10,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "lint:fix": "npm run lint:fix:eslint && npm run lint:fix:prettier",
+    "lint:fix:eslint": "eslint --fix",
+    "lint:fix:prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}'"
   },
   "keywords": [],
   "author": "",
