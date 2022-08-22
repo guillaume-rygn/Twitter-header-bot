@@ -50,23 +50,20 @@ The script fetches new replies every 60 seconds (to avoid [rate limit](https://d
 
 ## Development guidelines
 
-Eslint & prettier is setup on this repository. Don't forget to run them before commit.
+Eslint & Prettier have been configured on this repository.
+Don't forget to run them before each commit 
+(or after a pull-request is rebased onto the latest commit of the main branch).
 
-How to reformat ?
-
-```
-npm run format
-```
-
-How to run eslint ?
-```
-npm run lint
-```
-
-or 
+How to reformat with both eslint and prettier?
 
 ```
 npm run lint:fix
+```
+
+How to run eslint?
+
+```
+npm run lint
 ```
 
 ## Most importantly
