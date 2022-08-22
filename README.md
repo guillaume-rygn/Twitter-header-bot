@@ -2,7 +2,6 @@
 
 ![banner](images/banner.png)
 
-
 ## How to setup for your Twitter
 
 Add a '.env' file and insert these lines:
@@ -24,10 +23,13 @@ Lastly, add a banner template file with this specific name : twitter-banner.png.
 ## Run the script
 
 Install dependencies:
+
 ```shell
 yarn
 ```
+
 or
+
 ```shell
 npm install
 ```
@@ -42,9 +44,27 @@ Keep it running with a process manager like [pm2](https://pm2.io/) and have fun!
 
 ## How the script works
 
-[French Tutorial here](https://hot-jujube-90c.notion.site/Twitter-Bot-Header-eef6c49eee4c4762bca9e4a50aefd91e). 
+[French Tutorial here](https://hot-jujube-90c.notion.site/Twitter-Bot-Header-eef6c49eee4c4762bca9e4a50aefd91e).
 
 The script fetches new replies every 60 seconds (to avoid [rate limit](https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-users-show)).
+
+## Development guidelines
+
+Eslint & Prettier have been configured on this repository.
+Don't forget to run them before each commit 
+(or after a pull-request is rebased onto the latest commit of the main branch).
+
+How to reformat with both eslint and prettier?
+
+```
+npm run lint:fix
+```
+
+How to run eslint?
+
+```
+npm run lint
+```
 
 ## Most importantly
 
