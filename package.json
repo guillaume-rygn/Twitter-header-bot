@@ -1,10 +1,20 @@
 {
   "name": "twihod",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "contributors": [
+    {
+      "name" : "Geoffrey Migliacci",
+      "email" : "geoffrey.migliacci@gmail.com",
+      "url" : "https://migliacci.fr/"
+    },
+    {
+      "name" : "Guillaume Reygner",
+      "email" : "reygner0224@gmail.com",
+      "url" : "https://guillaumereygner.fr/"
+    }
+  ],
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -68,16 +78,16 @@
     ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
+    
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.(t|j)s",
+      "!**/app.module.ts",
+      "!main.ts"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@core/(.*)$": "<rootDir>/../src/core/$1"
-    }
+    "testEnvironment": "node"
   }
 }
