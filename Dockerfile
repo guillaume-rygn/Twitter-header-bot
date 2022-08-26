@@ -8,10 +8,8 @@ ENV API_KEY \
 
 WORKDIR /usr/src/app
 
-COPY package.json .
-
-RUN npm install
-
 COPY . .
+
+RUN npm ci
 
 ENTRYPOINT ["node", "index.js"]

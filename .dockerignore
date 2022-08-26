@@ -1,0 +1,9 @@
+node_modules/
+.git/
+*.md
+.dockerignore
+.eslintrc.js
+.gitignore
+.tool-versions
+Dockerfile
+Procfile
