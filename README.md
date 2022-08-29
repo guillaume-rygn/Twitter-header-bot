@@ -18,7 +18,14 @@ To get the API keys, you need to [apply for a Twitter Developer account](https:/
 It's free and take ~5 minutes.
 
 Lastly, add a banner template file with this specific name : twitter-banner.png.
-(make sure your file is a png image and have a size of 1500x500px)
+
+You'll have to make sure the banner template file is an image in PNG format.
+
+Besides, you'll have to resize it by following the [official sizing recommendations](https://help.twitter.com/en/managing-your-account/common-issues-when-uploading-profile-photo):
+ - width: 1500px,
+ - height: 500px 
+
+i.e. 1500x500 in px
 
 ## Run the script
 
