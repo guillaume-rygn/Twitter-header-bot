@@ -6,6 +6,12 @@ const sharp = require("sharp");
 const fs = require("fs");
 // to bypass heroku port issue
 const http = require("http");
+const Express = require("express");
+const cors = require("cors");
+const PORT = process.env.PORT || 8000;
+
+const app = new Express();
+app.use(cors())
 
 const twitterClient = new TwitterClient({
   apiKey: process.env.API_KEY,
@@ -204,8 +210,10 @@ async function delete_files(files) {
   }
 }
 
-get_followers();
-
-setInterval(() => {
-  get_followers();
-}, 60000);
+app.listen(PORT, () => {
+  console.log(`Server started on port 8000`);
+  setInterval(() => {
+    get_followers();
+    console.log("start")
+  }, 60000);
+});
